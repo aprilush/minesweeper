@@ -34,4 +34,8 @@ public class MapState {
     public int getRemainingCoordinates() {
         return mapInstance.getRemainingCoordinates();
     }
+
+    public void flag(Coordinate coordinate) throws InvalidCoordinateException { mapInstance.flag(coordinate); }
+    public void unFlag(Coordinate coordinate) throws InvalidCoordinateException { mapInstance.unFlag(coordinate); }
+    public boolean isFlagged(Coordinate coordinate) throws InvalidCoordinateException { return mapInstance.isFlagged(coordinate); }
 }

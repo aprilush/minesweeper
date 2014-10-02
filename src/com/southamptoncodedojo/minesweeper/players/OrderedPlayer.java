@@ -17,6 +17,11 @@ public class OrderedPlayer extends Player {
     Coordinate nextCoordinate = new Coordinate(0,0);
 
     @Override
+    public String getName() {
+        return "Ordered Player";
+    }
+
+    @Override
     public Coordinate takeTurn(MapState mapState) {
         Coordinate thisCoordinate = nextCoordinate;
 

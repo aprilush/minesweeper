@@ -10,6 +10,11 @@ public class PlayerPlayingGame {
     Player player;
     public MapInstance mapInstance;
     MapState mapState;
+    int turn = 1;
+
+    public int getTurn() {
+        return turn;
+    }
 
     public PlayerPlayingGame(Player player, MapInstance mapInstance) {
         this.player = player;
@@ -18,6 +23,7 @@ public class PlayerPlayingGame {
     }
 
     public Coordinate takeTurn() {
+        turn += 1;
         try {
             Coordinate c = player.takeTurn(mapState);
             mapInstance.hit(c);
@@ -43,5 +49,9 @@ public class PlayerPlayingGame {
             // TODO: We need to deal with this exception somehow
             e.printStackTrace();
         }
+    }
+
+    public String getName() {
+        return player.getName();
     }
 }

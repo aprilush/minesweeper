@@ -20,6 +20,11 @@ public class TestPlayer extends Player {
     }
 
     @Override
+    public String getName() {
+        return "Test Player";
+    }
+
+    @Override
     public Coordinate takeTurn(MapState mapState) {
         turns += 1;
         Coordinate c = p.takeTurn(mapState);

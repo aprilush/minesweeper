@@ -140,4 +140,122 @@ public class GameTest {
         assertEquals(4, p1.turns);
         assertEquals(4, p2.turns);
     }
+
+    @Test
+    public void testNextTurnElimination() {
+        Coordinate[] mineCoords = new Coordinate[]{new Coordinate(2, 0), new Coordinate(6, 0), new Coordinate(9, 9), new Coordinate(5, 5), new Coordinate(5, 7), new Coordinate(6, 6)};
+        Map m = new com.southamptoncodedojo.minesweeper.TestMap(10, mineCoords);
+        TestPlayer p1 = new TestPlayer();
+        TestPlayer p2 = new TestPlayer();
+        TestPlayer p3 = new TestPlayer();
+
+        p3.avoid(mineCoords);
+        p1.avoid(new Coordinate[]{new Coordinate(2, 0)});
+
+        Game g = new Game(m, new Player[]{p1, p2, p3});
+        g.setup();
+
+        // P1 turn
+        g.nextTurn();
+        assertEquals(2, g.playersPlayingGame[0].getTurn());
+        // P2 turn
+        g.nextTurn();
+        assertEquals(2, g.playersPlayingGame[1].getTurn());
+        // P3 turn
+        g.nextTurn();
+        assertEquals(2, g.playersPlayingGame[2].getTurn());
+        // P1 turn
+        g.nextTurn();
+        assertEquals(3, g.playersPlayingGame[0].getTurn());
+        // P2 turn
+        g.nextTurn();
+        assertEquals(3, g.playersPlayingGame[1].getTurn());
+        // P3 turn
+        g.nextTurn();
+        assertEquals(3, g.playersPlayingGame[2].getTurn());
+        // At this point player 2 should be eliminated
+        assertEquals(Map.State.LOSE, g.playersPlayingGame[1].mapInstance.getState());
+        // P1 turn
+        g.nextTurn();
+        assertEquals(4, g.playersPlayingGame[0].getTurn());
+        // P3 turn
+        g.nextTurn();
+        assertEquals(4, g.playersPlayingGame[2].getTurn());
+        assertEquals(3, g.playersPlayingGame[1].getTurn());
+        // P1 turn
+        g.nextTurn();
+        assertEquals(5, g.playersPlayingGame[0].getTurn());
+        // P3 turn
+        g.nextTurn();
+        assertEquals(5, g.playersPlayingGame[2].getTurn());
+        assertEquals(3, g.playersPlayingGame[1].getTurn());
+        // P1 turn
+        g.nextTurn();
+        assertEquals(6, g.playersPlayingGame[0].getTurn());
+        assertEquals(Map.State.LOSE, g.playersPlayingGame[0].mapInstance.getState());
+        // P3 turn
+        g.nextTurn();
+        assertEquals(6, g.playersPlayingGame[2].getTurn());
+        assertEquals(3, g.playersPlayingGame[1].getTurn());
+        assertEquals(6, g.playersPlayingGame[0].getTurn());
+        for (int i = 0; i < 57; i++) {
+            // P3 turn
+            g.nextTurn();
+            assertEquals(7 + i, g.playersPlayingGame[2].getTurn());
+            assertEquals(3, g.playersPlayingGame[1].getTurn());
+            assertEquals(6, g.playersPlayingGame[0].getTurn());
+        }
+        assertEquals(Map.State.WIN, g.playersPlayingGame[2].mapInstance.getState());
+    }
+
+    @Test
+    public void testNextRoundElimination() {
+        Coordinate[] mineCoords = new Coordinate[]{new Coordinate(2, 0), new Coordinate(6, 0), new Coordinate(9, 9), new Coordinate(5, 5), new Coordinate(5, 7), new Coordinate(6, 6)};
+        Map m = new com.southamptoncodedojo.minesweeper.TestMap(10, mineCoords);
+        TestPlayer p1 = new TestPlayer();
+        TestPlayer p2 = new TestPlayer();
+        TestPlayer p3 = new TestPlayer();
+
+        p3.avoid(mineCoords);
+        p1.avoid(new Coordinate[]{new Coordinate(2, 0)});
+
+        Game g = new Game(m, new Player[]{p1, p2, p3});
+        g.setup();
+
+        g.nextRound();
+        assertEquals(2, g.playersPlayingGame[0].getTurn());
+        assertEquals(2, g.playersPlayingGame[1].getTurn());
+        assertEquals(2, g.playersPlayingGame[2].getTurn());
+
+        g.nextRound();
+        assertEquals(3, g.playersPlayingGame[0].getTurn());
+        assertEquals(3, g.playersPlayingGame[1].getTurn());
+        assertEquals(3, g.playersPlayingGame[2].getTurn());
+        assertEquals(Map.State.LOSE, g.playersPlayingGame[1].mapInstance.getState());
+
+        g.nextRound();
+        assertEquals(4, g.playersPlayingGame[0].getTurn());
+        assertEquals(4, g.playersPlayingGame[2].getTurn());
+        assertEquals(3, g.playersPlayingGame[1].getTurn());
+
+        g.nextRound();
+        assertEquals(5, g.playersPlayingGame[2].getTurn());
+        assertEquals(3, g.playersPlayingGame[1].getTurn());
+        assertEquals(5, g.playersPlayingGame[0].getTurn());
+        System.out.println("---");
+        g.nextRound();
+        assertEquals(6, g.playersPlayingGame[2].getTurn());
+        assertEquals(3, g.playersPlayingGame[1].getTurn());
+        assertEquals(6, g.playersPlayingGame[0].getTurn());
+        assertEquals(Map.State.LOSE, g.playersPlayingGame[0].mapInstance.getState());
+
+        for (int i = 0; i < 57; i++) {
+            // P3 turn
+            g.nextRound();
+            assertEquals(7 + i, g.playersPlayingGame[2].getTurn());
+            assertEquals(3, g.playersPlayingGame[1].getTurn());
+            assertEquals(6, g.playersPlayingGame[0].getTurn());
+        }
+        assertEquals(Map.State.WIN, g.playersPlayingGame[2].mapInstance.getState());
+    }
 }

@@ -33,24 +33,45 @@ public class Game {
 
     public void nextTurn() {
         if (gameIsOver()) {
+            nextTurnIndex = lowestActivePlayer();
             return; // TODO: Maybe raise an exception?
         }
         if (playersPlayingGame[nextTurnIndex].mapInstance.getState() == Map.State.IN_PROGRESS) {
             playersPlayingGame[nextTurnIndex].takeTurn();
         }
         nextTurnIndex += 1;
-        if (nextTurnIndex >= players.length) nextTurnIndex = 0;
+        if (nextTurnIndex >= players.length) nextTurnIndex = lowestActivePlayer();
+        if (nextTurnIndex < 0) return;
         if (playersPlayingGame[nextTurnIndex].mapInstance.getState() != Map.State.IN_PROGRESS) {
             nextTurn();
         }
+    }
+
+    int lowestActivePlayer() {
+        int i = 0;
+        while (playersPlayingGame[i].mapInstance.getState() != Map.State.IN_PROGRESS) {
+            i += 1;
+            if (i >= playersPlayingGame.length) {
+                return -1;
+            }
+        }
+        return i;
     }
 
     public void nextRound() {
         if (gameIsOver()) {
             return; // TODO: Maybe raise an exception?
         }
-        nextTurn();
-        while (nextTurnIndex > 0) {
+
+        // Get number of active players
+        int activePlayers = 0;
+        for (int i = 0; i < playersPlayingGame.length; i++) {
+            if (playersPlayingGame[i].mapInstance.getState() == Map.State.IN_PROGRESS) {
+                activePlayers += 1;
+            }
+        }
+
+        for (int i = 0; i < activePlayers; i++) {
             nextTurn();
         }
     }

@@ -10,6 +10,7 @@ public class MapInstance {
     Map map;
 
     boolean[][] openedCoordinates;
+    boolean[][] flagged;
 
     boolean hasLost = false;
 
@@ -19,6 +20,7 @@ public class MapInstance {
         this.map = map;
 
         openedCoordinates = new boolean[map.getSize()][map.getSize()];
+        flagged= new boolean[map.getSize()][map.getSize()];
     }
 
     private void hitI(Coordinate coordinate) throws InvalidCoordinateException {
@@ -41,6 +43,27 @@ public class MapInstance {
                 }
             }
         }
+    }
+
+    public void flag(Coordinate coordinate) throws InvalidCoordinateException {
+        if (!coordinate.isValid(map.getSize())) {
+            throw new InvalidCoordinateException("Invalid coordinate:" + coordinate.toString());
+        }
+        flagged[coordinate.getX()][coordinate.getY()] = true;
+    }
+
+    public void unFlag(Coordinate coordinate) throws InvalidCoordinateException {
+        if (!coordinate.isValid(map.getSize())) {
+            throw new InvalidCoordinateException("Invalid coordinate:" + coordinate.toString());
+        }
+        flagged[coordinate.getX()][coordinate.getY()] = false;
+    }
+
+    public boolean isFlagged(Coordinate coordinate) throws InvalidCoordinateException {
+        if (!coordinate.isValid(map.getSize())) {
+            throw new InvalidCoordinateException("Invalid coordinate:" + coordinate.toString());
+        }
+        return flagged[coordinate.getX()][coordinate.getY()];
     }
 
     public void hit(Coordinate coordinate) throws InvalidCoordinateException {

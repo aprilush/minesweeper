@@ -26,6 +26,17 @@ public class MapInstance {
         flagged= new boolean[map.getSize()][map.getSize()];
     }
 
+    MapState mapState;
+    /**
+     * Get a map state to abstract away access to this instance
+     */
+    public MapState getMapState() {
+        if (mapState == null) {
+            mapState = new MapState(this);
+        }
+        return mapState;
+    }
+
     /**
      * This is used to do the work for hit - so that it doesn't update lastHitCoordinate
      * @param coordinate The coordinate to hit
@@ -120,13 +131,7 @@ public class MapInstance {
             throw new UnknownCountException("We don't know the count for this coordinate");
         }
 
-        int count = 0;
-        for(Coordinate c : coordinate.getSurroundingCoordinates(map.getSize())) {
-            if (map.mineIsAt(c)) {
-                count += 1;
-            }
-        }
-        return count;
+        return map.getCount(coordinate);
     }
 
     /**

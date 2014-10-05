@@ -2,6 +2,7 @@ package com.southamptoncodedojo.minesweeper;
 
 import com.southamptoncodedojo.minesweeper.exceptions.InvalidCoordinateException;
 import com.southamptoncodedojo.minesweeper.exceptions.TooManyMinesException;
+import com.southamptoncodedojo.minesweeper.exceptions.UnknownCountException;
 
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
@@ -105,5 +106,21 @@ public class Map {
             }
         }
         return numberOfMines;
+    }
+
+    /**
+     * Get the number of mines surrounding the given coordinate.
+     * @param coordinate
+     * @return The number of mines surrounding the given coordinate.
+     * @throws InvalidCoordinateException
+     */
+    public int getCount(Coordinate coordinate) throws InvalidCoordinateException {
+        int count = 0;
+        for(Coordinate c : coordinate.getSurroundingCoordinates(getSize())) {
+            if (mineIsAt(c)) {
+                count += 1;
+            }
+        }
+        return count;
     }
 }

@@ -37,7 +37,7 @@ public class TestPlayer extends Player {
     }
 
     /**
-     * Ensure that the TestPlayer does not hit any of the avoided coordinates
+     * Ensure that the PlayerTest does not hit any of the avoided coordinates
      * @param coordinates Coordinates to avoid
      */
     public void avoid(Coordinate[] coordinates) {

@@ -8,7 +8,6 @@ import com.southamptoncodedojo.minesweeper.exceptions.InvalidCoordinateException
 public class PlayerPlayingGame {
     Player player;
     public MapInstance mapInstance;
-    MapState mapState;
     int turn = 1; // The current turn number of the player
 
     /**
@@ -21,7 +20,6 @@ public class PlayerPlayingGame {
     public PlayerPlayingGame(Player player, MapInstance mapInstance) {
         this.player = player;
         this.mapInstance = mapInstance;
-        this.mapState = new MapState(mapInstance);
     }
 
     /**
@@ -31,7 +29,7 @@ public class PlayerPlayingGame {
     public Coordinate takeTurn() {
         turn += 1;
         try {
-            Coordinate c = player.takeTurn(mapState);
+            Coordinate c = player.takeTurn(mapInstance);
             mapInstance.hit(c);
             return c;
         } catch (InvalidCoordinateException e) {
@@ -52,7 +50,7 @@ public class PlayerPlayingGame {
      * @return The coordinate the player chose
      */
     public Coordinate takeFirstTurn() {
-        firstCoordinate = player.takeTurn(mapState);
+        firstCoordinate = player.takeTurn(mapInstance);
         return firstCoordinate;
     }
 

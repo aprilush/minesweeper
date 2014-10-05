@@ -6,6 +6,8 @@ import com.southamptoncodedojo.minesweeper.ui.SwingUI;
 
 /**
  * Entry point for Minesweeper
+ *
+ * Run this with ./run.sh
  */
 public class Minesweeper {
     public static void main(String[] args) {

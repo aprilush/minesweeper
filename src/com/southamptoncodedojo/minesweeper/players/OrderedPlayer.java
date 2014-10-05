@@ -11,7 +11,7 @@ import com.southamptoncodedojo.minesweeper.Player;
  */
 public class OrderedPlayer extends Player {
 
-    Coordinate nextCoordinate = new Coordinate(0,0);
+    protected Coordinate nextCoordinate = new Coordinate(0,0);
 
     /**
      * All players must have a name

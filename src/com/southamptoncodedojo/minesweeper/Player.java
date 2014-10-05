@@ -22,4 +22,11 @@ public abstract class Player {
      * @return
      */
     public abstract Coordinate takeTurn(MapState mapState);
+
+    /**
+     * This method has been added to make testing easier - it exposes too much information to the AI and should not be overriden
+     */
+    public final Coordinate takeTurn(MapInstance mapInstance) {
+        return takeTurn(mapInstance.getMapState());
+    }
 }

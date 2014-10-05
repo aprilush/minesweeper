@@ -1,6 +1,5 @@
 package com.southamptoncodedojo.minesweeper;
 
-import com.southamptoncodedojo.minesweeper.players.OrderedPlayer;
 import com.southamptoncodedojo.minesweeper.players.RandomPlayer;
 import com.southamptoncodedojo.minesweeper.ui.CommandLineUI;
 import com.southamptoncodedojo.minesweeper.ui.SwingUI;
@@ -13,15 +12,15 @@ public class Minesweeper {
 
         // Configure the game
         int MAP_SIZE = 10;
-        int NUMBER_OF_MINES = 20;
+        int NUMBER_OF_MINES = 10;
 
         // For Text output
         int TEXT_WIDTH = 170; // We will wrap text longer than this to ensure it fits
-        long ROUND_DELAY = 0; // Use this to slow down the game to watch it as it progresses
+        long ROUND_DELAY = 1000; // Use this to slow down the game to watch it as it progresses
 
 
 
-        Player[] players = new Player[]{new RandomPlayer(), new OrderedPlayer(),new RandomPlayer(), new OrderedPlayer(),new RandomPlayer()};
+        Player[] players = new Player[]{new RandomPlayer()};
 
         Game game = new Game(MAP_SIZE, NUMBER_OF_MINES, players);
         // if, while testing, you want to configure the map manually, use:

@@ -4,9 +4,6 @@ package com.southamptoncodedojo.minesweeper;
 import com.southamptoncodedojo.minesweeper.exceptions.InvalidCoordinateException;
 import com.southamptoncodedojo.minesweeper.exceptions.TooManyMinesException;
 import com.southamptoncodedojo.minesweeper.exceptions.UnknownCountException;
-import com.southamptoncodedojo.minesweeper.TestMap;
-import com.southamptoncodedojo.minesweeper.players.OrderedPlayer;
-import com.southamptoncodedojo.minesweeper.players.RandomPlayer;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
@@ -88,18 +85,18 @@ public class MapInstanceTest {
     public void testWin() throws InvalidCoordinateException, UnknownCountException {
         Map m = new TestMap(10, new Coordinate[]{new Coordinate(5,5)});
         MapInstance mi = new MapInstance(m);
-        assert(mi.getState() == Map.State.IN_PROGRESS);
+        assert(mi.getState() == MapInstance.State.IN_PROGRESS);
         mi.hit(new Coordinate(0,0));
-        assert(mi.getState() == Map.State.WIN);
+        assert(mi.getState() == MapInstance.State.WIN);
     }
 
     @Test
     public void testLose() throws InvalidCoordinateException, UnknownCountException {
         Map m = new TestMap(10, new Coordinate[]{new Coordinate(5,5)});
         MapInstance mi = new MapInstance(m);
-        assert(mi.getState() == Map.State.IN_PROGRESS);
+        assert(mi.getState() == MapInstance.State.IN_PROGRESS);
         mi.hit(new Coordinate(5,5));
-        assert(mi.getState() == Map.State.LOSE);
+        assert(mi.getState() == MapInstance.State.LOSE);
     }
 
     @Test

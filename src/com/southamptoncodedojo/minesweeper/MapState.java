@@ -15,27 +15,65 @@ public class MapState {
         this.mapInstance = mapInstance;
     }
 
+    /**
+     * @return The size of the map
+     */
     public int getSize() {
         return mapInstance.map.getSize();
     }
 
-    public int getCount(Coordinate c) throws InvalidCoordinateException, UnknownCountException {
-        return mapInstance.getCount(c);
+    /**
+     * Get the number of mines surrounding the given coordinate.
+     * @param coordinate
+     * @return The number of mines surrounding the given coordinate.
+     * @throws UnknownCountException This will be thrown if the coordinate has not been opened yet
+     * @throws InvalidCoordinateException
+     */
+    public int getCount(Coordinate coordinate) throws InvalidCoordinateException, UnknownCountException {
+        return mapInstance.getCount(coordinate);
     }
 
-    public int getCountOrMinusOne(Coordinate c) throws InvalidCoordinateException {
-        try {
-            return mapInstance.getCount(c);
-        } catch (UnknownCountException e) {
-            return -1;
-        }
-    }
-
+    /**
+     * Get the number of spaces which have not yet been opened and do not contain mines.
+     *
+     * This will be 0 when the map has been won.
+     *
+     * @return Get the number of spaces which have not yet been opened and do not contain mines.
+     */
     public int getRemainingCoordinates() {
         return mapInstance.getRemainingCoordinates();
     }
 
+    /**
+     * Add a flag on a given coordinate (indicating you think there is a mine there). If there is already a flag
+     * there this will do nothing.
+     *
+     * You can add as many flags as you like on your turn.
+     * @param coordinate
+     * @throws InvalidCoordinateException
+     */
     public void flag(Coordinate coordinate) throws InvalidCoordinateException { mapInstance.flag(coordinate); }
+
+    /**
+     * Remove a flag from a given coordinate. If there is no flag there this will do nothing.
+     *
+     * You can remove as many flags as you like on your turn.
+     * @param coordinate
+     * @throws InvalidCoordinateException
+     */
     public void unFlag(Coordinate coordinate) throws InvalidCoordinateException { mapInstance.unFlag(coordinate); }
+
+    /**
+     * @param coordinate
+     * @return True if there a flag at the given coordinate
+     * @throws InvalidCoordinateException
+     */
     public boolean isFlagged(Coordinate coordinate) throws InvalidCoordinateException { return mapInstance.isFlagged(coordinate); }
+
+    /**
+     * @param coordinate
+     * @return Has the given coordinate been opened?
+     * @throws InvalidCoordinateException
+     */
+    public boolean isOpen(Coordinate coordinate) throws InvalidCoordinateException { return mapInstance.isOpen(coordinate); }
 }

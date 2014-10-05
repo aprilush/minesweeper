@@ -11,13 +11,18 @@ import java.util.ArrayList;
  * The command line UI will play through an entire game until it is game over
  */
 public class CommandLineUI extends MinesweeperUI {
-    Game game;
+    Game game;  // The game being played
 
+    // Use Ansi to format RED foreground when there is a mine
     Ansi hasMineFormatter = new Ansi(null, Ansi.Color.RED, null);
+    // Green background for the last move
     Ansi lastMoveFormatter = new Ansi(null, null, Ansi.Color.GREEN);
 
+    // The maximum width per line
     int maxTextWidth;
+    // The actual width per line we're using
     int textWidth;
+    // The delay between rounds
     long roundDelay;
 
     public CommandLineUI(Game game, int textWidth, long roundDelay) {
@@ -26,23 +31,30 @@ public class CommandLineUI extends MinesweeperUI {
         this.maxTextWidth = textWidth;
     }
 
+    /**
+     * Run the game
+     */
     public void start() {
         game.setup();
 
+        // Calculate the usable text width
         int widthPerMap = (game.playersPlayingGame[0].mapInstance.getSize() * 3) + 5;
         int d = maxTextWidth / widthPerMap;
         this.textWidth = (widthPerMap * d);
 
+        // Header
         System.out.println(new String(new char[textWidth]).replace("\0", "-"));
         System.out.println("Playing game with " + game.playersPlayingGame.length + " players");
         System.out.println(new String(new char[textWidth]).replace("\0", "-"));
 
+        // Initial game state
         printState();
 
         while (!game.gameIsOver()) {
             game.nextRound();
             printState();
             if (roundDelay > 0) {
+                // Delay if needed
                 try {
                     Thread.sleep(roundDelay);
                 } catch (InterruptedException e) {
@@ -58,6 +70,7 @@ public class CommandLineUI extends MinesweeperUI {
      */
     void printState() {
 
+        // Header
         System.out.println(new String(new char[textWidth]).replace("\0", "-"));
         System.out.println("Round " + round);
         System.out.println(new String(new char[textWidth]).replace("\0", "-"));
@@ -77,6 +90,7 @@ public class CommandLineUI extends MinesweeperUI {
         int numberOfLines = formattedMaps.get(0).length;
 
         int numberOfMapLines = (int) Math.ceil((double)game.playersPlayingGame.length / mapsPerLine);
+        // Ensure that we merge them on to the correct line
         for (int x = 0 ; x < numberOfMapLines; x++ ) {
             for(int i = 0; i < numberOfLines; i++) {
                 String s = "";
@@ -95,6 +109,11 @@ public class CommandLineUI extends MinesweeperUI {
         }
     }
 
+    /**
+     * Generate a map for the given player
+     * @param player
+     * @return A string representation of the map
+     */
     String[] formatMap(PlayerPlayingGame player) {
         MapInstance mapInstance = player.mapInstance;
 
@@ -116,7 +135,7 @@ public class CommandLineUI extends MinesweeperUI {
                         if (mapInstance.isFlagged(c)) {
                             thiss = " ! ";
                         } else {
-                            thiss = " · ";
+                            thiss = " \u00B7 ";
                         }
                     } else {
                         try {
@@ -126,7 +145,7 @@ public class CommandLineUI extends MinesweeperUI {
                             if (mapInstance.isFlagged(c)) {
                                 thiss = " ! ";
                             } else {
-                                thiss = " · ";
+                                thiss = " \u00B7 ";
                             }
                         }
                     }
@@ -150,9 +169,9 @@ public class CommandLineUI extends MinesweeperUI {
         m.add(new String(new char[width]).replace("\0", "-"));
 
         String state;
-        if (mapInstance.getState() == Map.State.IN_PROGRESS) {
+        if (mapInstance.getState() == MapInstance.State.IN_PROGRESS) {
             state = "Playing";
-        } else if (mapInstance.getState() == Map.State.WIN) {
+        } else if (mapInstance.getState() == MapInstance.State.WIN) {
             state = "Win";
         } else {
             state = "Lose";

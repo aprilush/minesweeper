@@ -1,8 +1,8 @@
 package com.southamptoncodedojo.minesweeper.ui;
 
-
-import com.southamptoncodedojo.minesweeper.Game;
-
+/**
+ * Superclass of game visualisers
+ */
 public abstract class MinesweeperUI {
     public abstract void start();
 }

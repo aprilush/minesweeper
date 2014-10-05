@@ -4,7 +4,6 @@ import java.util.ArrayList;
 
 /**
  * Represents a 2D coordinate
- * (Use this instead of a Point2D so you don't need to keep casting from double)
  */
 public class Coordinate {
     int x;
@@ -74,6 +73,13 @@ public class Coordinate {
         return "Coordinate<" + x + "," + y + ">";
     }
 
+    /**
+     * Is this a valid coordinate for the given map size
+     *
+     * (e.g. with a coordinate at 10,10 isValid(10) would return false, but isValid(11) would return true.)
+     * @param size
+     * @return
+     */
     public boolean isValid(int size) {
         return (x >= 0 && x < size && y >= 0 && y < size);
     }

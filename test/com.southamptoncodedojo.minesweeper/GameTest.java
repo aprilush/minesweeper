@@ -1,10 +1,11 @@
 package com.southamptoncodedojo.minesweeper;
 
 import org.junit.Test;
-import com.southamptoncodedojo.minesweeper.TestPlayer;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+
+import com.southamptoncodedojo.minesweeper.TestPlayer;
 
 public class GameTest {
 
@@ -34,13 +35,13 @@ public class GameTest {
         g.setup();
 
         assertFalse(g.gameIsOver());
-        assertEquals(Map.State.IN_PROGRESS, g.playersPlayingGame[0].mapInstance.getState());
+        assertEquals(MapInstance.State.IN_PROGRESS, g.playersPlayingGame[0].mapInstance.getState());
         g.nextTurn();
         assertFalse(g.gameIsOver());
-        assertEquals(Map.State.IN_PROGRESS, g.playersPlayingGame[0].mapInstance.getState());
+        assertEquals(MapInstance.State.IN_PROGRESS, g.playersPlayingGame[0].mapInstance.getState());
         g.nextTurn();
         assert(g.gameIsOver());
-        assertEquals(Map.State.LOSE, g.playersPlayingGame[0].mapInstance.getState());
+        assertEquals(MapInstance.State.LOSE, g.playersPlayingGame[0].mapInstance.getState());
     }
 
     @Test
@@ -53,13 +54,13 @@ public class GameTest {
         g.setup();
 
         assertFalse(g.gameIsOver());
-        assertEquals(Map.State.IN_PROGRESS, g.playersPlayingGame[0].mapInstance.getState());
+        assertEquals(MapInstance.State.IN_PROGRESS, g.playersPlayingGame[0].mapInstance.getState());
 
         for(int i = 0; i < 63; i++) {
             g.nextTurn();
         }
         assert(g.gameIsOver());
-        assertEquals(Map.State.WIN, g.playersPlayingGame[0].mapInstance.getState());
+        assertEquals(MapInstance.State.WIN, g.playersPlayingGame[0].mapInstance.getState());
     }
 
     @Test
@@ -98,24 +99,24 @@ public class GameTest {
         // p1 should be going first, and should win - p2 should go out after taking 3 turns
 
         assertFalse(g.gameIsOver());
-        assertEquals(Map.State.IN_PROGRESS, g.playersPlayingGame[0].mapInstance.getState());
-        assertEquals(Map.State.IN_PROGRESS, g.playersPlayingGame[1].mapInstance.getState());
+        assertEquals(MapInstance.State.IN_PROGRESS, g.playersPlayingGame[0].mapInstance.getState());
+        assertEquals(MapInstance.State.IN_PROGRESS, g.playersPlayingGame[1].mapInstance.getState());
         g.nextTurn();
         g.nextTurn();
         assertFalse(g.gameIsOver());
-        assertEquals(Map.State.IN_PROGRESS, g.playersPlayingGame[0].mapInstance.getState());
-        assertEquals(Map.State.IN_PROGRESS, g.playersPlayingGame[1].mapInstance.getState());
+        assertEquals(MapInstance.State.IN_PROGRESS, g.playersPlayingGame[0].mapInstance.getState());
+        assertEquals(MapInstance.State.IN_PROGRESS, g.playersPlayingGame[1].mapInstance.getState());
         g.nextTurn();
         g.nextTurn();
         assertFalse(g.gameIsOver());
-        assertEquals(Map.State.IN_PROGRESS, g.playersPlayingGame[0].mapInstance.getState());
-        assertEquals(Map.State.LOSE, g.playersPlayingGame[1].mapInstance.getState());
+        assertEquals(MapInstance.State.IN_PROGRESS, g.playersPlayingGame[0].mapInstance.getState());
+        assertEquals(MapInstance.State.LOSE, g.playersPlayingGame[1].mapInstance.getState());
 
         for(int i = 0; i < 61; i++) {
             g.nextTurn();
         }
         assert(g.gameIsOver());
-        assertEquals(Map.State.WIN, g.playersPlayingGame[0].mapInstance.getState());
+        assertEquals(MapInstance.State.WIN, g.playersPlayingGame[0].mapInstance.getState());
     }
 
     @Test
@@ -174,7 +175,7 @@ public class GameTest {
         g.nextTurn();
         assertEquals(3, g.playersPlayingGame[2].getTurn());
         // At this point player 2 should be eliminated
-        assertEquals(Map.State.LOSE, g.playersPlayingGame[1].mapInstance.getState());
+        assertEquals(MapInstance.State.LOSE, g.playersPlayingGame[1].mapInstance.getState());
         // P1 turn
         g.nextTurn();
         assertEquals(4, g.playersPlayingGame[0].getTurn());
@@ -192,7 +193,7 @@ public class GameTest {
         // P1 turn
         g.nextTurn();
         assertEquals(6, g.playersPlayingGame[0].getTurn());
-        assertEquals(Map.State.LOSE, g.playersPlayingGame[0].mapInstance.getState());
+        assertEquals(MapInstance.State.LOSE, g.playersPlayingGame[0].mapInstance.getState());
         // P3 turn
         g.nextTurn();
         assertEquals(6, g.playersPlayingGame[2].getTurn());
@@ -205,7 +206,7 @@ public class GameTest {
             assertEquals(3, g.playersPlayingGame[1].getTurn());
             assertEquals(6, g.playersPlayingGame[0].getTurn());
         }
-        assertEquals(Map.State.WIN, g.playersPlayingGame[2].mapInstance.getState());
+        assertEquals(MapInstance.State.WIN, g.playersPlayingGame[2].mapInstance.getState());
     }
 
     @Test
@@ -231,7 +232,7 @@ public class GameTest {
         assertEquals(3, g.playersPlayingGame[0].getTurn());
         assertEquals(3, g.playersPlayingGame[1].getTurn());
         assertEquals(3, g.playersPlayingGame[2].getTurn());
-        assertEquals(Map.State.LOSE, g.playersPlayingGame[1].mapInstance.getState());
+        assertEquals(MapInstance.State.LOSE, g.playersPlayingGame[1].mapInstance.getState());
 
         g.nextRound();
         assertEquals(4, g.playersPlayingGame[0].getTurn());
@@ -247,7 +248,7 @@ public class GameTest {
         assertEquals(6, g.playersPlayingGame[2].getTurn());
         assertEquals(3, g.playersPlayingGame[1].getTurn());
         assertEquals(6, g.playersPlayingGame[0].getTurn());
-        assertEquals(Map.State.LOSE, g.playersPlayingGame[0].mapInstance.getState());
+        assertEquals(MapInstance.State.LOSE, g.playersPlayingGame[0].mapInstance.getState());
 
         for (int i = 0; i < 57; i++) {
             // P3 turn
@@ -256,6 +257,6 @@ public class GameTest {
             assertEquals(3, g.playersPlayingGame[1].getTurn());
             assertEquals(6, g.playersPlayingGame[0].getTurn());
         }
-        assertEquals(Map.State.WIN, g.playersPlayingGame[2].mapInstance.getState());
+        assertEquals(MapInstance.State.WIN, g.playersPlayingGame[2].mapInstance.getState());
     }
 }

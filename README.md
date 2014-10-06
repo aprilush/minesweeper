@@ -4,7 +4,9 @@ Minesweeper
 About
 --
 
-LALALA
+This is a Minesweeper AI runner for Java.
+
+It was created for use at the October Southampton Code Dojo.
 
 Instructions
 --
@@ -25,9 +27,9 @@ cd minesweeper
 ./setup.sh MyPlayerName
 ```
 
-4. Edit **src/com/southamptoncodedojo/minesweeper/players/YourPlayerName.java** - implement your solution in the takeTurn() method.
+4. Edit **src/com/southamptoncodedojo/minesweeper/players/YourPlayerName.java** - implement your solution in the ``takeTurn()`` method.
 
-    Java documentation is available in the **doc/** folder. The documentation for the parameter to the takeTurn() method is available at **doc/com/southamptoncodedojo/minesweeper/MapState.html**.
+    Java documentation is available in the **doc/** folder. The documentation for the parameter to the ``takeTurn()`` method is available at **doc/com/southamptoncodedojo/minesweeper/MapState.html**.
 
 5. Implement unit tests in **test/com/southamptoncodedojo/minesweeper/players/PlayerTest.java** and run the tests using ``./test.sh``
 

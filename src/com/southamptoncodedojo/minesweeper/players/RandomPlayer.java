@@ -22,7 +22,7 @@ public class RandomPlayer extends Player {
      */
     @Override
     public String getName() {
-        return "Random Player";
+        return "RandomPlayer";
     }
 
     /**

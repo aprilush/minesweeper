@@ -1,5 +1,6 @@
 package com.southamptoncodedojo.minesweeper;
 
+import com.southamptoncodedojo.minesweeper.players.OrderedPlayer;
 import com.southamptoncodedojo.minesweeper.players.RandomPlayer;
 import com.southamptoncodedojo.minesweeper.ui.CommandLineUI;
 import com.southamptoncodedojo.minesweeper.ui.SwingUI;
@@ -38,6 +39,6 @@ public class Minesweeper {
         new CommandLineUI(game, TEXT_WIDTH, ROUND_DELAY, SUPPRESS_EXCEPTIONS).start();
 
         // or the SwingUI to step through a game graphically
-        // new SwingUI(game).start();
+        //new SwingUI(game, SUPPRESS_EXCEPTIONS).start();
     }
 }

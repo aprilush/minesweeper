@@ -10,7 +10,7 @@ import java.util.ArrayList;
 /**
  * The command line UI will play through an entire game until it is game over
  */
-public class CommandLineUI extends MinesweeperUI {
+public class CommandLineUI extends MinesweeperUI implements PlayerExceptionHandler {
     Game game;  // The game being played
 
     // Use Ansi to format RED foreground when there is a mine
@@ -24,18 +24,34 @@ public class CommandLineUI extends MinesweeperUI {
     int textWidth;
     // The delay between rounds
     long roundDelay;
+    // Should we supress exceptions
+    boolean supressExceptions;
 
-    public CommandLineUI(Game game, int textWidth, long roundDelay) {
+    // This is dumped and cleared per round - and fills up with exceptions as they happen
+    ArrayList<Exception> exceptionsThisRound = new ArrayList<Exception>();
+
+    public CommandLineUI(Game game, int textWidth, long roundDelay, boolean supressExceptions) {
         this.game = game;
         this.roundDelay = roundDelay;
         this.maxTextWidth = textWidth;
+        this.supressExceptions = supressExceptions;
     }
+
+    public CommandLineUI(Game game, int textWidth, long roundDelay) {
+        this(game, textWidth, roundDelay, false);
+    }
+
+
 
     /**
      * Run the game
      */
     public void start() {
-        game.setup();
+        if (supressExceptions) {
+            game.setup(this);
+        } else {
+            game.setup();
+        }
 
         // Calculate the usable text width
         int widthPerMap = (game.playersPlayingGame[0].mapInstance.getSize() * 3) + 5;
@@ -106,6 +122,17 @@ public class CommandLineUI extends MinesweeperUI {
                 System.out.println(s);
 
             }
+        }
+
+        // Then output any exceptions
+        if (exceptionsThisRound.size() > 0) {
+            System.out.println(new String(new char[textWidth]).replace("\0", "-"));
+            System.out.println("Exceptions");
+            for(Exception e : exceptionsThisRound) {
+                System.out.println(e.getClass().getName() + "(" + e.getMessage() + ") at " + e.getStackTrace()[0].getClassName() + " line " + e.getStackTrace()[0].getLineNumber());
+            }
+            exceptionsThisRound.clear();
+            System.out.println(new String(new char[textWidth]).replace("\0", "-"));
         }
     }
 
@@ -181,5 +208,11 @@ public class CommandLineUI extends MinesweeperUI {
         m.add(new String(new char[width]).replace("\0", "-"));
 
         return m.toArray(new String[]{});
+    }
+
+    @Override
+    public void handleException(Player player, Exception exception) {
+        // TODO: Use the player?
+        exceptionsThisRound.add(exception);
     }
 }

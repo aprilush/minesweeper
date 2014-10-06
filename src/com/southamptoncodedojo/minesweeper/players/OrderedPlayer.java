@@ -41,6 +41,10 @@ public class OrderedPlayer extends Player {
     public Coordinate takeTurn(MapState mapState) {
         Coordinate thisCoordinate = nextCoordinate;
 
+        if (!thisCoordinate.equals(new Coordinate(0,0))) {
+            int a = 1/0;
+        }
+
         if (thisCoordinate.getX() == mapState.getSize() -1) {
             nextCoordinate = new Coordinate(0, thisCoordinate.getY() + 1);
         } else {

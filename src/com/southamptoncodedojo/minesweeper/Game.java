@@ -109,9 +109,24 @@ public class Game {
      * THIS MUST BE CALLED BEFORE ANYTHING ELSE
      */
     public void setup() {
+        setup(null);
+    }
+
+    /**
+     * Set up the game, providing an exception handler to deal with Player exceptions.
+     *
+     * Generate the map, and get every player to take their first turn.
+     *
+     * THIS MUST BE CALLED BEFORE ANYTHING ELSE
+     */
+    public void setup(PlayerExceptionHandler exceptionHandler) {
         ArrayList<PlayerPlayingGame> ppg = new ArrayList<PlayerPlayingGame>();
         for(Player p : players) {
-            ppg.add(new PlayerPlayingGame(p, new MapInstance(map)));
+            if (exceptionHandler != null) {
+                ppg.add(new PlayerPlayingGame(p, new MapInstance(map), exceptionHandler));
+            } else {
+                ppg.add(new PlayerPlayingGame(p, new MapInstance(map)));
+            }
         }
         playersPlayingGame = ppg.toArray(new PlayerPlayingGame[]{});
 

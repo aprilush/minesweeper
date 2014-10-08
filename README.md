@@ -40,4 +40,4 @@ cd minesweeper
 IDEs
 --
 
-Included are configuration files for [IntelliJ](https://www.jetbrains.com/idea/), [Eclipse](https://www.eclipse.org), and [Netbeans](https://netbeans.org). You should be able to just open/import the project as normal. If you want to use a different IDE you're on your own.
+Included are configuration files for [IntelliJ](https://www.jetbrains.com/idea/) and [Eclipse](https://www.eclipse.org). You should be able to just open/import the project as normal. If you want to use a different IDE you're on your own.

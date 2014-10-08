@@ -157,22 +157,27 @@ public class CommandLineUI extends MinesweeperUI implements PlayerExceptionHandl
                 try {
                     Coordinate c = new Coordinate(x, y);
                     String thiss;
+                    String space = " ";
+
+                    if (mapInstance.lastHit().equals(c)) {
+                        space = "|";
+                    }
 
                     if (mapInstance.mineIsAt(c)) {
                         if (mapInstance.isFlagged(c)) {
-                            thiss = " ! ";
+                            thiss = space + "!" + space;
                         } else {
-                            thiss = " \u00B7 ";
+                            thiss = space + "\u25CF" + space;
                         }
                     } else {
                         try {
-                            thiss = " " + mapInstance.getCount(c) + " ";
+                            thiss = space + mapInstance.getCount(c) + space;
                         } catch (UnknownCountException e) {
                             // We don't know - it's a space
                             if (mapInstance.isFlagged(c)) {
-                                thiss = " ! ";
+                                thiss = space + "\u00A1" + space;
                             } else {
-                                thiss = " \u00B7 ";
+                                thiss = space + "\u00B7" + space;
                             }
                         }
                     }

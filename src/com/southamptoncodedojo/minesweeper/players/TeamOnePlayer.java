@@ -37,6 +37,7 @@ public class TeamOnePlayer extends Player {
 		if (firstRun) {
 			// first run!
 			// can do this randomly too!
+      this.firstRun = false;
 			return new Coordinate(0, 0);
 		} else {
 			if (mapState.getRemainingCoordinates()==0) {

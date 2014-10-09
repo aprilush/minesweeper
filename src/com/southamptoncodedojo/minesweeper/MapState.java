@@ -23,6 +23,11 @@ public class MapState {
     }
 
     /**
+     * @return The number of mines on the map
+     */
+    public int getNumberOfMines() { return mapInstance.map.getNumberOfMines(); }
+
+    /**
      * Get the number of mines surrounding the given coordinate.
      * @param coordinate
      * @return The number of mines surrounding the given coordinate.

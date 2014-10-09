@@ -1,7 +1,7 @@
 package com.southamptoncodedojo.minesweeper;
 
 import com.southamptoncodedojo.minesweeper.players.OrderedPlayer;
-import com.southamptoncodedojo.minesweeper.players.RandomPlayer;
+import com.southamptoncodedojo.minesweeper.players.TeamOnePlayer;
 import com.southamptoncodedojo.minesweeper.ui.CommandLineUI;
 
 /**
@@ -26,7 +26,7 @@ public class Minesweeper {
 
 
 
-        Player[] players = new Player[]{new RandomPlayer()};
+        Player[] players = new Player[]{new TeamOnePlayer()};
 
         Game game = new Game(MAP_SIZE, NUMBER_OF_MINES, players);
         // if, while testing, you want to configure the map manually, use:
